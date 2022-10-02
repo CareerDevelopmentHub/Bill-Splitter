@@ -1,7 +1,5 @@
 # Bill-Splitter
 
-# split_bill
-
 A new Flutter project.
 
 ## Getting Started
