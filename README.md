@@ -1,16 +1,28 @@
+
 # Bill-Splitter
 
-A new Flutter project.
+An android app where you can create groups to split bills within.
 
-## Getting Started
+## Features added/ To-be-added
 
-This project is a starting point for a Flutter application.
+- Light/dark mode toggle
+- Feature to upload contacts from phone
+- Form groups and add people accordingly
+- Feature to send ntoifications to the people added, that their amount is due
+- Integrate online payment methods
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![second](https://user-images.githubusercontent.com/83918019/193891111-b26702e6-d940-4b8a-be10-60e65b181492.png)
+![make groups](https://user-images.githubusercontent.com/83918019/193891148-b022b2d0-9f7c-46b1-954a-5470916aa304.png)
+![first](https://user-images.githubusercontent.com/83918019/193891173-5d230f07-1f2b-4617-aea1-0ea39eaeabf1.png)
+![details](https://user-images.githubusercontent.com/83918019/193891187-af9a1872-2579-45dc-b533-a47c72429e94.png)
+
+
+## Contributing
+
+Contributions are always welcome!
+
+
+
