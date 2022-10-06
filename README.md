@@ -22,7 +22,17 @@ An android app where you can create groups to split bills within.
 
 ## Contributing
 
-Contributions are always welcome!
+- Fork this repository
+- Clone this repository
+- Configure and install the dependencies
+- Create a new branch: `git checkout -b my-branch-name`
+- Make appropriate changes
+- Commit the changes
+- Push to your branch and raise a PR
+- Wait for your pull request to be reviewed and merged!
+
+Contributions are always welcome! ![image](https://user-images.githubusercontent.com/83918019/194359099-2e4524ac-6793-4f1e-add7-a8634957b532.png)
+
 
 
 
