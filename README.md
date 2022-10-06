@@ -31,7 +31,7 @@ An android app where you can create groups to split bills within.
 - Push to your branch and raise a PR
 - Wait for your pull request to be reviewed and merged!
 
-Contributions are always welcome! ![image](https://user-images.githubusercontent.com/83918019/194359099-2e4524ac-6793-4f1e-add7-a8634957b532.png)
+Contributions are always welcome! :star:
 
 
 
