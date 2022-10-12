@@ -12,6 +12,166 @@ class Groupage extends StatefulWidget {
 }
 
 class _GroupageState extends State<Groupage> {
+  // final _controller;
+  List expenses = [
+    ["Restaurant", "Bill splitting", "15000", "700"],
+    ["Trip", "Went with Friends", "15000", "700"],
+  ];
+  final _newgroupcontroller = TextEditingController();
+  final _newdescontroller = TextEditingController();
+  final _newamountcontroller = TextEditingController();
+  final _newreceivedcontroller = TextEditingController();
+  void deleteExpense(int index) {
+    setState(() {
+      expenses.removeAt(index);
+    });
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            backgroundColor: Colors.grey[300],
+            title: Text("ADD EXPENSES"),
+            content: SingleChildScrollView(
+              child: Expanded(
+                child: Container(
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(45),
+                  //     color: Colors.grey),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Text("Group Name"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsetsDirectional.all(10),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide:
+                                        BorderSide(color: Colors.black54))),
+                            controller: _newgroupcontroller,
+                          ),
+                        ),
+                        //des
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Text("Add description"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextFormField(
+                              controller: _newdescontroller,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsetsDirectional.all(10),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide:
+                                          BorderSide(color: Colors.black54)))),
+                        ),
+
+                        //total amount
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Text("Total Amount"),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsetsDirectional.all(10),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide:
+                                          BorderSide(color: Colors.black54))),
+                              keyboardType: TextInputType.number,
+                              controller: _newamountcontroller),
+                        ),
+
+                        //receieved
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Text("Received Amount"),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextFormField(
+                              keyboardType: TextInputType.number,
+                              controller: _newreceivedcontroller,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsetsDirectional.all(12),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide:
+                                          BorderSide(color: Colors.black54)))),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: savenewexpense,
+                              child: Text(
+                                "Save",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Color.fromARGB(255, 241, 123, 80),
+                                  minimumSize: Size(80, 40)),
+                            ),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  _newgroupcontroller.clear();
+                                  _newdescontroller.clear();
+                                  _newamountcontroller.clear();
+                                  _newreceivedcontroller.clear();
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("Cancel"),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Color.fromARGB(255, 241, 123, 80),
+                                    minimumSize: Size(80, 40))),
+                          ],
+                        )
+                      ]),
+                ),
+              ),
+            ),
+          );
+        }));
+  }
+
+  void savenewexpense() {
+    setState(() {
+      expenses.add([
+        _newgroupcontroller.text,
+        _newdescontroller.text,
+        _newamountcontroller.text,
+        _newreceivedcontroller.text
+      ]);
+    });
+    _newgroupcontroller.clear();
+    _newdescontroller.clear();
+    _newamountcontroller.clear();
+    _newreceivedcontroller.clear();
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,26 +180,31 @@ class _GroupageState extends State<Groupage> {
         title: const Text("Bill Splitter"),
         centerTitle: true,
       ),
-      body: ListView(
+      body: Column(
         children: [
-          ExpenseTile(
-              groupname: "Restaurant",
-              des: "Bill SPlitting",
-              Total: "RS 1500",
-              received: "Rs 500"),
-          ExpenseTile(
-              groupname: "Manali Trip",
-              des: "Went with Neha,Eren and Alex",
-              Total: "RS 15,000",
-              received: "Rs 700"),
-          SizedBox(
-            height: 100,
+          Expanded(
+            child: ListView.builder(
+              itemCount: expenses.length,
+              itemBuilder: (context, index) {
+                return ExpenseTile(
+                  groupname: expenses[index][0],
+                  des: expenses[index][1],
+                  // ignore: prefer_interpolation_to_compose_strings
+                  Total: "\Rs ${expenses[index][2]}",
+                  received: "\Rs ${expenses[index][3]}",
+                  settings: (context) {},
+                  onEdit: (context) {},
+                  onDelete: (context) => deleteExpense(index),
+                );
+              },
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            padding: const EdgeInsets.all(25.0),
             child: ElevatedButton(
               onPressed: () {
                 //show a dialog box
+                _showDialog();
               },
               child: Text(
                 "Add Expense",
@@ -52,221 +217,6 @@ class _GroupageState extends State<Groupage> {
           )
         ],
       ),
-      //       body: Container(
-      //           child: Column(
-      //         children: [
-      //           Padding(
-      //             padding: const EdgeInsets.all(15.0),
-      //             child: GestureDetector(
-      //               onTap: (() {
-      //                 Navigator.push(
-      //                     context, MaterialPageRoute(builder: (_) => Homepage()));
-      //               }),
-      //               child: NeuBox(
-      //                   child: Padding(
-      //                 padding: const EdgeInsets.all(12.0),
-      //                 child: Container(
-
-      //                     // ignore: sort_child_properties_last
-      //                     child: Center(
-      //                         child: Column(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Row(
-      //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                       // ignore: prefer_const_literals_to_create_immutables
-      //                       children: [
-      //                         Column(
-      //                           crossAxisAlignment: CrossAxisAlignment.start,
-      //                           children: [
-      //                             const Text(
-      //                               "Restaurant",
-      //                               // ignore: prefer_const_constructors
-      //                               style: TextStyle(
-      //                                   fontSize: 35,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 18, 17, 17)),
-      //                             ),
-      //                             Text("Bill Splitting"),
-      //                           ],
-      //                         ),
-
-      //                       ],
-      //                     ),
-
-      //                     const SizedBox(
-      //                       height: 30,
-      //                     ),
-
-      //                     // ignore: prefer_const_constructors
-      //                     SizedBox(
-      //                       height: 30,
-      //                     ),
-      //                     Column(
-      //                       crossAxisAlignment: CrossAxisAlignment.start,
-      //                       children: [
-      //                         Row(
-      //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                           // ignore: prefer_const_literals_to_create_immutables
-      //                           children: [
-      //                             const Text(
-      //                               "In Total",
-      //                               style: TextStyle(
-      //                                   fontSize: 25,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 8, 8, 8)),
-      //                             ),
-      //                             const Text(
-      //                               "Rs 1200",
-      //                               style: TextStyle(
-      //                                   fontSize: 20,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 34, 34, 34)),
-      //                             )
-      //                           ],
-      //                         ),
-      //                         Row(
-      //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                           // ignore: prefer_const_literals_to_create_immutables
-      //                           children: [
-      //                             const Text(
-      //                               "Received",
-      //                               style: TextStyle(
-      //                                   fontSize: 15,
-      //                                   color: Color.fromARGB(255, 66, 66, 66)),
-      //                             ),
-      //                             const Text(
-      //                               "Rs 500",
-      //                               style: TextStyle(
-      //                                   fontSize: 15,
-      //                                   color: const Color.fromARGB(255, 66, 66, 66)),
-      //                             )
-      //                           ],
-      //                         ),
-      //                       ],
-      //                     )
-      //                   ],
-      //                 ))),
-      //               )),
-      //             ),
-      //           ),
-      //           Padding(
-      //             padding: const EdgeInsets.all(15.0),
-      //             child: InkWell(
-      //               onTap: () {
-      //                 Navigator.push(
-      //                     context, MaterialPageRoute(builder: (_) => Homepage()));
-      //               },
-      //               child: NeuBox(
-      //                   child: Padding(
-      //                 padding: const EdgeInsets.all(12.0),
-      //                 child: Container(
-
-      //                     // ignore: sort_child_properties_last
-      //                     child: Center(
-      //                         child: Column(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     Row(
-      //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                       // ignore: prefer_const_literals_to_create_immutables
-      //                       children: [
-      //                         Column(
-      //                           crossAxisAlignment: CrossAxisAlignment.start,
-      //                           children: [
-      //                             const Text(
-      //                               "GOA Trip",
-      //                               // ignore: prefer_const_constructors
-      //                               style: TextStyle(
-      //                                   fontSize: 35,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 18, 17, 17)),
-      //                             ),
-      //                             Text("Bill Splitting"),
-      //                           ],
-      //                         ),
-      //                         // const Text(
-      //                         //   "Rs 1000",
-      //                         //   // ignore: unnecessary_const
-      //                         //   style: const TextStyle(
-      //                         //       fontSize: 20,
-      //                         //       fontWeight: FontWeight.bold,
-      //                         //       // ignore: prefer_const_constructors
-      //                         //       color: Color.fromARGB(255, 82, 80, 80)),
-      //                         // )
-      //                       ],
-      //                     ),
-
-      //                     const SizedBox(
-      //                       height: 30,
-      //                     ),
-
-      //                     // ignore: prefer_const_constructors
-      //                     SizedBox(
-      //                       height: 30,
-      //                     ),
-      //                     Column(
-      //                       crossAxisAlignment: CrossAxisAlignment.start,
-      //                       children: [
-      //                         Row(
-      //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                           // ignore: prefer_const_literals_to_create_immutables
-      //                           children: [
-      //                             const Text(
-      //                               "In Total",
-      //                               style: TextStyle(
-      //                                   fontSize: 25,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 8, 8, 8)),
-      //                             ),
-      //                             const Text(
-      //                               "Rs 15,000",
-      //                               style: TextStyle(
-      //                                   fontSize: 20,
-      //                                   fontWeight: FontWeight.bold,
-      //                                   color: Color.fromARGB(255, 34, 34, 34)),
-      //                             )
-      //                           ],
-      //                         ),
-      //                         Row(
-      //                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                           // ignore: prefer_const_literals_to_create_immutables
-      //                           children: [
-      //                             const Text(
-      //                               "Received",
-      //                               style: TextStyle(
-      //                                   fontSize: 15,
-      //                                   color: Color.fromARGB(255, 66, 66, 66)),
-      //                             ),
-      //                             const Text(
-      //                               "Rs 00",
-      //                               style: TextStyle(
-      //                                   fontSize: 15,
-      //                                   color: const Color.fromARGB(255, 66, 66, 66)),
-      //                             )
-      //                           ],
-      //                         ),
-      //                       ],
-      //                     )
-      //                   ],
-      //                 ))),
-      //               )),
-      //             ),
-      //           ),
-      //           SizedBox(
-      //             height: 150,
-      //           ),
-      //           ElevatedButton(
-      //             onPressed: () {
-      //               //show a dialog box
-      //             },
-      //             child: Text("Add Expense"),
-      //             style: ElevatedButton.styleFrom(
-      //                 fixedSize: Size(180, 45),
-      //                 primary: Color.fromARGB(255, 241, 123, 80)),
-      //           )
-      //         ],
-      //       )),
     );
   }
 }
