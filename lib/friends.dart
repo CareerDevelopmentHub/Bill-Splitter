@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:contact_picker/contact_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'neubox.dart';
@@ -21,6 +22,9 @@ class Friends extends StatefulWidget {
 }
 
 class _FriendsState extends State<Friends> {
+  final ContactPicker _contactPicker = new ContactPicker();
+  late Contact _contact;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,9 +85,18 @@ class _FriendsState extends State<Friends> {
                             value: 7,
                             onChanged: ((value) {})),
                       ],
-                    )
+                    ),
                   ],
-                )
+                ),
+                GestureDetector(
+                  child: Icon(Icons.call),
+                  onTap: () async {
+                    Contact contact = await _contactPicker.selectContact();
+                    setState(() {
+                      _contact = contact;
+                    });
+                  },
+                ),
               ],
             ),
           ),
