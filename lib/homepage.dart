@@ -10,6 +10,10 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  double foodAmt = 1000;
+  double tip_amount = 0;
+  double finalAmt = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +59,8 @@ class _HomepageState extends State<Homepage> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 82, 80, 80)),
                       ),
-                      const Text(
-                        "Rs 1000",
+                      Text(
+                        foodAmt.toString(),
                         // ignore: unnecessary_const
                         style: const TextStyle(
                             fontSize: 20,
@@ -80,16 +84,22 @@ class _HomepageState extends State<Homepage> {
                               color: Color.fromARGB(255, 75, 75, 75))),
                       Slider(
                           min: 0,
-                          max: 10,
+                          max: 100,
+                          divisions: 10,
                           activeColor: const Color.fromARGB(255, 241, 123, 80),
                           inactiveColor: Colors.grey,
-                          value: 5,
-                          onChanged: ((value) {})),
+                          value: tip_amount,
+                          label: (tip_amount * 10).toString(),
+                          onChanged: ((value) {
+                            setState(() {
+                              tip_amount = value;
+                            });
+                          })),
                       const SizedBox(
                         width: 0,
                       ),
-                      const Text("20%"),
-                      const Text("200")
+                      // Text("${tip_amount.toString()}% "),
+                      Text((tip_amount * 10).toString()),
                     ],
                   ),
                   // ignore: prefer_const_constructors
@@ -107,8 +117,8 @@ class _HomepageState extends State<Homepage> {
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 8, 8, 8)),
                       ),
-                      const Text(
-                        "Rs 1200",
+                      Text(
+                        (foodAmt + (tip_amount*10)).toString(),
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -121,11 +131,11 @@ class _HomepageState extends State<Homepage> {
             )),
           ),
           Friends(
-              name: "John", percentage: "40%", toPay: "Rs 500", slider: "4"),
+              finalAmt: (foodAmt + (tip_amount*10)), name: "John", percentage: "40%", toPay: "Rs 500", slider: "4"),
           Friends(
-              name: "Neha", percentage: "70%", toPay: "Rs 1500", slider: "7"),
+              finalAmt: (foodAmt + (tip_amount*10)), name: "Neha", percentage: "70%", toPay: "Rs 1500", slider: "7"),
           Friends(
-              name: "Eren", percentage: "30%", toPay: "Rs 300", slider: "3"),
+              finalAmt: (foodAmt + (tip_amount*10)), name: "Eren", percentage: "30%", toPay: "Rs 300", slider: "3"),
 
           // Padding(
           //   padding: const EdgeInsets.all(12.0),

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'neubox.dart';
 
 class Friends extends StatefulWidget {
+  final double finalAmt;
   final String name;
   final String percentage;
   final String toPay;
   final String slider;
   const Friends({
     Key? key,
+    required this.finalAmt,
     required this.name,
     required this.percentage,
     required this.toPay,
@@ -21,8 +23,11 @@ class Friends extends StatefulWidget {
 }
 
 class _FriendsState extends State<Friends> {
+  double john_amt = 0;
+
   @override
   Widget build(BuildContext context) {
+    double finalAmt = widget.finalAmt;
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -57,14 +62,14 @@ class _FriendsState extends State<Friends> {
                         SizedBox(
                           width: 10,
                         ),
-                        Text("40%",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 66, 66, 66))),
+                        // Text(((john_amt / (widget.finalAmt)) * 100).toString(),
+                        //     style: TextStyle(
+                        //         fontWeight: FontWeight.bold,
+                        //         color: Color.fromARGB(255, 66, 66, 66))),
                         SizedBox(
                           width: 100,
                         ),
-                        Text("Rs 500",
+                        Text("Rs ${john_amt}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 66, 66, 66))),
@@ -74,16 +79,21 @@ class _FriendsState extends State<Friends> {
                       children: [
                         Slider(
                             min: 0,
-                            max: 10,
+                            max: finalAmt,
                             activeColor:
                                 const Color.fromARGB(255, 45, 191, 244),
                             inactiveColor: Colors.grey,
-                            value: 7,
-                            onChanged: ((value) {})),
+                            value: john_amt,
+                            divisions: 10,
+                            onChanged: ((value) {
+                              setState(() {
+                                john_amt = value;
+                              });
+                            })),
                       ],
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
