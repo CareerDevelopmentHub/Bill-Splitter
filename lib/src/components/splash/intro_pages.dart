@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:split_bill/grouppage.dart';
-import 'package:split_bill/homepage.dart';
+import 'package:split_bill/src/components/group/grouppage.dart';
+import 'package:split_bill/src/home/homepage.dart';
 
 class Introduction extends StatelessWidget {
   const Introduction({Key? key}) : super(key: key);

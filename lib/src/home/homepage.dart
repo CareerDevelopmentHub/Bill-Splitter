@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:split_bill/friends.dart';
-import 'package:split_bill/neubox.dart';
+import 'package:split_bill/src/components/helper/friends.dart';
+import 'package:split_bill/src/components/helper/neubox.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
