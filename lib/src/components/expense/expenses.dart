@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'homepage.dart';
-import 'neubox.dart';
+import '../../home/homepage.dart';
+import '../helper/neubox.dart';
 
 class ExpenseTile extends StatefulWidget {
   final String groupname;

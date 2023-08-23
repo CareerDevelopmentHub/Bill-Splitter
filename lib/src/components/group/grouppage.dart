@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:split_bill/expenses.dart';
-import 'package:split_bill/homepage.dart';
+import 'package:split_bill/src/components/expense/expenses.dart';
+import 'package:split_bill/src/home/homepage.dart';
 
-import 'neubox.dart';
+import '../helper/neubox.dart';
 
 class Groupage extends StatefulWidget {
   const Groupage({Key? key}) : super(key: key);

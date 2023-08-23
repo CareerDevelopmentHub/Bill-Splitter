@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:split_bill/grouppage.dart';
-import 'package:split_bill/homepage.dart';
-import 'package:split_bill/intro_pages.dart';
+import 'package:split_bill/src/components/group/grouppage.dart';
+import 'package:split_bill/src/home/homepage.dart';
+import 'package:split_bill/src/components/splash/intro_pages.dart';
 
 void main() {
   runApp(const MyApp());
